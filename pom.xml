@@ -41,8 +41,9 @@
     </dependencies>
 
     <build>
+        <finalName>deployment-app</finalName>
         <plugins>
-
+            
             <!-- Spring Boot Plugin -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -50,7 +51,7 @@
                 <configuration>
                     <mainClass>com.siva.deploy.DeploymentAppApplication</mainClass>
                 </configuration>
-            </plugin>
+            </plugin>   
 
         </plugins>
     </build>
