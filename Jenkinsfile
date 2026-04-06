@@ -9,7 +9,7 @@ pipeline{
     stages{
         stage("scm checkout"){
             steps{
-              sh 'git clone https://github.com/SivaSuribabu/java-nexus-project.git'
+              checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/SivaSuribabu/java-nexus-project.git']])
             }
         }
 
