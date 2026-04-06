@@ -19,16 +19,22 @@ pipeline{
             }
         }
 
-    stage('Deploy to Nexus') {
-        steps {
-            configFileProvider([configFile(fileId: 'global-maven-setting', variable: 'MAVEN_SETTINGS')]) {
-                sh '''
+    stage('Build & Deploy') {
+    steps {
+        script {
+            def DATE = new Date().format('ddMMyyyy')
+            def VERSION = "${DATE}-${env.BUILD_NUMBER}"
+
+            configFileProvider([configFile(fileId: 'maven-settings', variable: 'MAVEN_SETTINGS')]) {
+                sh """
                 mvn clean deploy \
+                -Drevision=${VERSION} \
                 -s $MAVEN_SETTINGS \
                 -DskipTests
-                '''
+                """
             }
         }
     }
+}
     }
 }

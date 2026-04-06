@@ -7,7 +7,7 @@
 
     <groupId>com.siva</groupId>
     <artifactId>deployment-app</artifactId>
-    <version>1.0.0</version>
+    <version>${revision}</version>
     <packaging>jar</packaging>
 
     <name>deployment-app</name>
