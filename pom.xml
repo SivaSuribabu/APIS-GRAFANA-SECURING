@@ -58,6 +58,11 @@
                 <artifactId>nexus-staging-maven-plugin</artifactId>
                 <version>1.6.15</version>
                 <extensions>true</extensions>
+                <configuration>
+                    <serverId>nexus</serverId>
+                    <nexusUrl>http://localhost:8081/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
             </plugin>
 
         </plugins>
