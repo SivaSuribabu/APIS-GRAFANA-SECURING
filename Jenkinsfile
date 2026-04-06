@@ -44,8 +44,9 @@ pipeline{
         sudo systemctl stop tomcat10
 
         # copy JAR file
-        sudo cp /var/lib/jenkins/workspace/java-nexus/target/deployment-app.jar /var/lib/tomcat10/webapps/
+        sudo cp /var/lib/jenkins/workspace/java-nexus/target/deployment-app.jar /var/lib/tomcat10/webapps/ROOT
 
+        unzip deployment-app.jar -d /var/lib/tomcat10/webapps/ROOT
         # start tomcat
         sudo systemctl start tomcat10
         '''
