@@ -52,18 +52,27 @@
                 </configuration>
             </plugin>
 
+            <!-- Nexus Staging Plugin -->
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.15</version>
+                <extensions>true</extensions>
+            </plugin>
+
         </plugins>
     </build>
+
 
     <!-- Nexus Deployment Config -->
     <distributionManagement>
         <repository>
-            <id>nexus-releases</id>
-            <url>http://YOUR_NEXUS_IP:8081/repository/maven-releases/</url>
+            <id>maven-releases</id>
+            <url>http://localhost:8081/repository/maven-releases/</url>
         </repository>
         <snapshotRepository>
-            <id>nexus-snapshots</id>
-            <url>http://YOUR_NEXUS_IP:8081/repository/maven-snapshots/</url>
+            <id>maven-snapshots</id>
+            <url>http://localhost:8081/repository/maven-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
 
