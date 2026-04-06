@@ -36,5 +36,20 @@ pipeline{
         }
     }
 }
+
+    stage('Deploy to Tomcat') {
+    steps {
+        sh '''
+        # stop existing app (optional)
+        sudo systemctl stop tomcat10
+
+        # copy WAR file
+        sudo cp target/deployment-app.war /var/lib/tomcat10/webapps/
+
+        # start tomcat
+        sudo systemctl start tomcat10
+        '''
+    }
+}
     }
 }
