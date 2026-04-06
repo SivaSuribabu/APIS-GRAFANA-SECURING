@@ -1,0 +1,30 @@
+body {
+    margin: 0;
+    font-family: Arial;
+    background: #0f172a;
+    color: white;
+}
+
+.container {
+    text-align: center;
+    margin-top: 15%;
+}
+
+h1 {
+    font-size: 3rem;
+    color: #38bdf8;
+}
+
+p {
+    font-size: 1.2rem;
+    margin: 20px 0;
+}
+
+button {
+    padding: 12px 24px;
+    background: #22c55e;
+    border: none;
+    color: white;
+    font-size: 16px;
+    border-radius: 6px;
+}
