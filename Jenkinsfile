@@ -43,8 +43,8 @@ pipeline{
         # stop existing app (optional)
         sudo systemctl stop tomcat10
 
-        # copy WAR file
-        sudo cp target/deployment-app.war /var/lib/tomcat10/webapps/
+        # copy JAR file
+        sudo cp target/deployment-app.jar /var/lib/tomcat10/webapps/
 
         # start tomcat
         sudo systemctl start tomcat10
