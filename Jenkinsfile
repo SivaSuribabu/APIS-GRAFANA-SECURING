@@ -25,7 +25,7 @@ pipeline{
             def DATE = new Date().format('ddMMyyyy')
             def VERSION = "${DATE}-${env.BUILD_NUMBER}"
 
-            configFileProvider([configFile(fileId: 'maven-settings', variable: 'MAVEN_SETTINGS')]) {
+            configFileProvider([configFile(fileId: 'global-maven-setting', variable: 'MAVEN_SETTINGS')]) {
                 sh """
                 mvn clean deploy \
                 -Drevision=${VERSION} \
