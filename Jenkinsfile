@@ -19,12 +19,16 @@ pipeline{
             }
         }
 
-        stage('mvn deploy'){
-            steps{
-                withCredentials([usernamePassword(credentialsId: 'nexus-creds', passwordVariable: 'NEXUS_PASSWORD', usernameVariable: 'NEXUS_USERNAME')]) {
-                    sh "mvn deploy -DskipTests -Dnexus.username=${NEXUS_USERNAME} -Dnexus.password=${NEXUS_PASSWORD}"
-                }
+    stage('Deploy to Nexus') {
+        steps {
+            configFileProvider([configFile(fileId: 'maven-settings', variable: 'MAVEN_SETTINGS')]) {
+                sh '''
+                mvn clean deploy \
+                -s $MAVEN_SETTINGS \
+                -DskipTests
+                '''
             }
         }
+    }
     }
 }
