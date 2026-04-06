@@ -26,13 +26,13 @@
 
     <dependencies>
 
-        <!-- Web + REST -->
+        <!-- Web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!-- Thymeleaf (for UI) -->
+        <!-- UI -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -52,24 +52,10 @@
                 </configuration>
             </plugin>
 
-            <!-- Nexus Staging Plugin -->
-            <plugin>
-                <groupId>org.sonatype.plugins</groupId>
-                <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>1.6.15</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <serverId>nexus</serverId>
-                    <nexusUrl>http://localhost:8081/</nexusUrl>
-                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                </configuration>
-            </plugin>
-
         </plugins>
     </build>
 
-
-    <!-- Nexus Deployment Config -->
+    <!-- Nexus Deployment -->
     <distributionManagement>
         <repository>
             <id>maven-releases</id>
