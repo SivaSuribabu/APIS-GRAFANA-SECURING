@@ -21,7 +21,7 @@ pipeline{
 
     stage('Deploy to Nexus') {
         steps {
-            configFileProvider([configFile(fileId: 'maven-settings', variable: 'MAVEN_SETTINGS')]) {
+            configFileProvider([configFile(fileId: 'global-maven-settings', variable: 'MAVEN_SETTINGS')]) {
                 sh '''
                 mvn clean deploy \
                 -s $MAVEN_SETTINGS \
