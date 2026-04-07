@@ -20,28 +20,38 @@ pipeline{
         }
 
     stage('Build & Deploy') {
-    steps {
-        script {
-            def DATE = new Date().format('ddMMyyyy')
-            def VERSION = "${DATE}-${env.BUILD_NUMBER}"
+        steps {
+            script {
+                def DATE = new Date().format('ddMMyyyy')
+                def VERSION = "${DATE}-${env.BUILD_NUMBER}"
 
-            configFileProvider([configFile(fileId: 'global-maven-setting', variable: 'MAVEN_SETTINGS')]) {
-                sh """
-                mvn clean deploy \
-                -Drevision=${VERSION} \
-                -s $MAVEN_SETTINGS \
-                -DskipTests
-                """
+                configFileProvider([configFile(fileId: 'global-maven-setting', variable: 'MAVEN_SETTINGS')]) {
+                    sh """
+                    mvn clean deploy \
+                    -Drevision=${VERSION} \
+                    -s $MAVEN_SETTINGS \
+                    -DskipTests
+                    """
+                }
             }
         }
+    
+    }
+    
+    stage('OWASP Dependency Check') {
+    steps {
+        catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+            dependencyCheck(
+                additionalArguments: '''
+                --scan .
+                --format XML
+                ''',
+                odcInstallation: 'owasp'
+            )
+        }
+        dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
     }
 }
-    stage('owasp dependency check') {
-        steps{
-            dependencyCheck additionalArguments: '--scan /var/lib/jenkins/workspace/java-nexus/' , odcInstallation: 'owasp' 
-                dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
-        }
-    }
     
     stage('Deploy to Tomcat') {
     steps {
