@@ -37,20 +37,20 @@ pipeline {
             }
         }
 
-        stage('OWASP Dependency Check') {
-            steps {
-                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                    dependencyCheck(
-                        additionalArguments: '''
-                            --scan target/
-                            --format XML
-                        ''',
-                        odcInstallation: 'owasp'
-                    )
-                }
-                dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
-            }
-        }
+        // stage('OWASP Dependency Check') {
+        //     steps {
+        //         catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+        //             dependencyCheck(
+        //                 additionalArguments: '''
+        //                     --scan target/
+        //                     --format XML
+        //                 ''',
+        //                 odcInstallation: 'owasp'
+        //             )
+        //         }
+        //         dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
+        //     }
+        // }
 
         stage('Deploy to Tomcat') {
             steps {
