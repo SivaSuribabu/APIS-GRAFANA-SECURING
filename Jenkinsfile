@@ -36,7 +36,13 @@ pipeline{
         }
     }
 }
-
+    stage('owasp dependency check') {
+        steps{
+            dependencyCheck additionalArguments: '--scan /var/lib/jenkins/workspace/java-nexus/' , odcInstallation: 'owasp' 
+            dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
+        }
+    }
+    
     stage('Deploy to Tomcat') {
     steps {
         sh '''
