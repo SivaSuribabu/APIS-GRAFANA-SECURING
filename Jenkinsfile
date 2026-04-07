@@ -43,7 +43,7 @@ pipeline{
         catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
             dependencyCheck(
                 additionalArguments: '''
-                --scan .
+                --scan /var/lib/jenkins/workspace/java-nexus/target/deployment-app.jar \
                 --format XML
                 ''',
                 odcInstallation: 'owasp'
