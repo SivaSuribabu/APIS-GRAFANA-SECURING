@@ -23,10 +23,10 @@ pipeline {
             steps {
                 dependencyCheck(
                     additionalArguments: "--scan ${env.WORKSPACE}/target/",
-                    odcInstallation: 'owasp'
+                    odcInstallation: "owasp"
                 )
                 dependencyCheckPublisher(
-                    pattern: '**/dependency-check-report.xml'
+                    pattern: "**/dependency-check-report.xml"
                 )
             }
         }
