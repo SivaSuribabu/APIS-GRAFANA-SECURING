@@ -19,12 +19,18 @@ pipeline {
             }
         }
 
-        stage('dependency check'){
-            steps{
-                dependencyCheck additionalArguments: '--scan /var/lib/jenkins/workspace/java-nexus/target/', odcInstallation: 'owasp'
-                dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
+        stage('Dependency Check') {
+            steps {
+                dependencyCheck(
+                    additionalArguments: "--scan ${env.WORKSPACE}/target/ --format XML --format HTML",
+                    odcInstallation: 'owasp'
+                )
+                dependencyCheckPublisher(
+                    pattern: '**/dependency-check-report.xml'
+                )
             }
         }
+        
         stage('Build & Deploy') {
             steps {
                 script {
