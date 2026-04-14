@@ -12,7 +12,7 @@ pipeline {
                 checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/SivaSuribabu/java-nexus-project.git']])
             }
         }
-    
+
         stage('build') {
             steps {
                 sh 'mvn clean install -DskipTests'
@@ -41,10 +41,6 @@ pipeline {
                     }
                 }
             }
-        }
-
-
-        
         }
     }
 }
