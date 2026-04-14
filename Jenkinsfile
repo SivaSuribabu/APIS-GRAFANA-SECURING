@@ -22,7 +22,7 @@ pipeline {
         stage('Dependency Check') {
             steps {
                 dependencyCheck(
-                    additionalArguments: "--scan ${env.WORKSPACE}/target/ --format XML --format HTML",
+                    additionalArguments: "--scan ${env.WORKSPACE}/target/",
                     odcInstallation: 'owasp'
                 )
                 dependencyCheckPublisher(
@@ -30,8 +30,8 @@ pipeline {
                 )
             }
         }
-        
-        stage('Build & Deploy') {
+
+        stage('Deploy-nexus') {
             steps {
                 script {
                     def DATE = new Date().format('ddMMyyyy')
