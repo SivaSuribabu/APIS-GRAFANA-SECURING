@@ -12,13 +12,19 @@ pipeline {
                 checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/SivaSuribabu/java-nexus-project.git']])
             }
         }
-
+    
         stage('build') {
             steps {
                 sh 'mvn clean install -DskipTests'
             }
         }
 
+        stage('dependency check'){
+            steps{
+                dependencyCheck additionalArguments: '--scan target/' , odcInstallations: 'owasp'
+                dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
+            }
+        }
         stage('Build & Deploy') {
             steps {
                 script {
@@ -37,35 +43,8 @@ pipeline {
             }
         }
 
-        // stage('OWASP Dependency Check') {
-        //     steps {
-        //         catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-        //             dependencyCheck(
-        //                 additionalArguments: '''
-        //                     --scan target/
-        //                     --format XML
-        //                 ''',
-        //                 odcInstallation: 'owasp'
-        //             )
-        //         }
-        //         dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
-        //     }
-        // }
 
-        stage('Deploy to Tomcat') {
-            steps {
-                sh '''
-                    # stop existing app (optional)
-                    sudo systemctl stop tomcat10
-
-                    # copy JAR file
-                    sudo rm -rf /var/lib/tomcat10/webapps/ROOT/*
-                    sudo cp /var/lib/jenkins/workspace/java-nexus/target/deployment-app.jar /var/lib/tomcat10/webapps/ROOT
-
-                    # start tomcat
-                    sudo systemctl start tomcat10
-                '''
-            }
+        
         }
     }
 }
