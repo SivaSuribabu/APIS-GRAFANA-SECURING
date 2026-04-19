@@ -1,0 +1,12 @@
+{
+  "AWSEBDockerrunVersion": "1",
+  "Image": {
+    "Name": "488446293137.dkr.ecr.us-east-1.amazonaws.com/java-nexus-app:latest",
+    "Update": "true"
+  },
+  "Ports": [
+    {
+      "ContainerPort": 8085
+    }
+  ]
+}

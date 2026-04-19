@@ -1,2 +1,7 @@
 /home/siva/Documents/projects/java-nexus-project/src/main/java/com/siva/deploy/DeploymentAppApplication.java
+/home/siva/Documents/projects/java-nexus-project/src/main/java/com/siva/deploy/config/SecurityConfig.java
 /home/siva/Documents/projects/java-nexus-project/src/main/java/com/siva/deploy/controller/HomeController.java
+/home/siva/Documents/projects/java-nexus-project/src/main/java/com/siva/deploy/controller/UserForm.java
+/home/siva/Documents/projects/java-nexus-project/src/main/java/com/siva/deploy/model/User.java
+/home/siva/Documents/projects/java-nexus-project/src/main/java/com/siva/deploy/repository/UserRepository.java
+/home/siva/Documents/projects/java-nexus-project/src/main/java/com/siva/deploy/service/UserService.java

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Dashboard</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}" />
+</head>
+<body>
+<div class="page-shell">
+    <div class="form-card">
+        <h1>Welcome, <span th:text="${username}">user</span>!</h1>
+        <p>Your login was successful.</p>
+        <p class="secondary"><a th:href="@{/}">Return to Home</a></p>
+    </div>
+</div>
+</body>
+</html>

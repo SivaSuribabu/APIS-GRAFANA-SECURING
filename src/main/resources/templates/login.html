@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}" />
+</head>
+<body>
+<div class="page-shell">
+    <div class="form-card">
+        <h1>Login</h1>
+        <p>Use your registered username and password to sign in.</p>
+
+        <div class="error" th:if="${#fields.hasGlobalErrors()}" th:errors="*{__all__}"></div>
+        <div class="success-message" th:if="${successMessage}" th:text="${successMessage}"></div>
+
+        <form th:action="@{/login}" th:object="${userForm}" method="post">
+            <label>
+                Username
+                <input type="text" th:field="*{username}" placeholder="Enter username" />
+            </label>
+            <div class="error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+
+            <label>
+                Password
+                <input type="password" th:field="*{password}" placeholder="Enter password" />
+            </label>
+            <div class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+
+            <button type="submit">Sign In</button>
+        </form>
+
+        <p class="secondary">New here? <a th:href="@{/signup}">Create account</a>.</p>
+        <p class="secondary"><a th:href="@{/}">Back to Home</a></p>
+    </div>
+</div>
+</body>
+</html>
