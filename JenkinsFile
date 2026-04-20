@@ -1,0 +1,53 @@
+pipeline {
+    agent any
+
+    environment {
+        AWS_REGION = "us-east-1"
+        ECR_REPO = "488446293137.dkr.ecr.us-east-1.amazonaws.com/java-nexus-app"
+        CLUSTER = "java-nexus-app"
+        SERVICE = "java-nexus-app-task-service-2kijt35v "
+    }
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/SivaSuribabu/java-nexus-project.git'
+            }
+        }
+
+        stage('Build Image') {
+            steps {
+                script {
+                    IMAGE_TAG = sh(script: "git rev-parse --short HEAD", returnStdout: true).trim()
+                    sh "docker build -t java-nexus-app ."
+                    sh "docker tag java-nexus-app:latest 488446293137.dkr.ecr.us-east-1.amazonaws.com/java-nexus-app:$IMAGE_TAG"
+                }
+            }
+        }
+
+        stage('Push to ECR') {
+            steps {
+                sh "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 488446293137.dkr.ecr.us-east-1.amazonaws.com"
+
+                sh "docker push 488446293137.dkr.ecr.us-east-1.amazonaws.com/java-nexus-app:$IMAGE_TAG"
+            }
+        }
+
+        stage('Deploy to ECS') {
+            steps {
+                sh """
+                sed "s|IMAGE_URI|$ECR_REPO:$IMAGE_TAG|g" task-def.json > new-task-def.json
+
+                aws ecs register-task-definition \
+                  --cli-input-json file://new-task-def.json
+
+                aws ecs update-service \
+                  --cluster $CLUSTER \
+                  --service $SERVICE \
+                  --force-new-deployment
+                """
+            }
+        }
+    }
+}
